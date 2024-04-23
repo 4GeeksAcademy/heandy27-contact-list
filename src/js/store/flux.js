@@ -12,7 +12,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			newContact: {
+				"name": "",
+				"phone": "",
+				"email": "",
+				"address": "",
+			}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
