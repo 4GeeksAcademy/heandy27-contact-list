@@ -1,4 +1,8 @@
+import { json, useParams } from "react-router";
+
+
 const getState = ({ getStore, getActions, setStore }) => {
+	let contactURL = "https://playground.4geeks.com/contact/"
 	return {
 		store: {
 			demo: [
@@ -13,12 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			newContact: {
-				"name": "",
-				"phone": "",
-				"email": "",
-				"address": "",
-			}
+			contacts: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -43,6 +42,79 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			getContacts: () => {
+				fetch(`${contactURL}agendas/heandy`, {
+					method: "GET"
+				})
+					.then((response) => {
+						console.log(response.status);
+						return response.json()
+
+					})
+					.then((data) => {
+						console.log(data);
+						setStore({ contacts: data.contacts })
+
+					})
+					.catch((error) => { error })
+			},
+
+
+			addNewContact: (name, phone, email, address) => {
+				fetch(`${contactURL}agendas/heandy/contacts`, {
+					method: "POST",
+					body: JSON.stringify({ name: name, phone: phone, email: email, address: address }),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => { return response.json() })
+					.then((data) => {
+
+						setStore([...contacts, data])
+					})
+					.catch((error) => { "hay un error en addContacts" + error })
+			},
+
+
+			deleteContact: (index) => {
+				let contactToDelete = getStore().contacts[index]
+				
+				fetch(`${contactURL}agendas/heandy/contacts/${contactToDelete.id}`, {
+					method: "DELETE",
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+
+						if (response.status == 204) {
+							getActions().getContacts();
+							return response.json()
+						}
+					})
+
+					.catch((error) => { error })
+			},
+			editContact: (id, name, phone, email, address) => {
+				
+				fetch(`${contactURL}agendas/heandy/contacts/${id}`, {
+					method: "PUT",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ name: name, phone: phone, email: email, address: address })
+				})
+					.then((response) => {
+
+
+						getActions().getContacts();
+						return response.json()
+
+					})
+
+					.catch((error) => { error })
 			}
 		}
 	};

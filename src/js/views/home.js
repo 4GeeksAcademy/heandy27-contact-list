@@ -9,7 +9,7 @@ export const Home = () => (
 		<p>
 			<img src={rigoImage} />
 		</p>
-		<Link to="/contacts/:idContact">
+		<Link to="/contacts">
 		<button className="bg-primary text-light">Search</button>
 		</Link>
 	</div>

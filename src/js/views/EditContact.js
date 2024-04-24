@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useContext, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
-
-const AddContact = () => {
+const EditContact = () => {
 
     const { store, actions } = useContext(Context)
 
@@ -12,10 +12,10 @@ const AddContact = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
-
+    const params = useParams();
+    console.log(params);
 
     return (
-
         <div className="bg-dark py-5">
             <div className="container bg-light p-3" style={{ width: "1200px" }}>
                 <form>
@@ -37,7 +37,7 @@ const AddContact = () => {
                         <input type="text" className="form-control" placeholder="Enter address" id="address" value={address} onChange={(e) => { setAddress(e.target.value) }} />
                     </div>
 
-                    <button type="submit" className="btn btn-primary" onClick={() => { actions.addNewContact(name, phone, email, address) }}>Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={() => { actions.editContact(params.idContact, name, phone, email, address) }}>Submit</button>
 
                 </form>
                 <Link to="/contacts">
@@ -45,8 +45,7 @@ const AddContact = () => {
                 </Link>
             </div>
         </div>
-
     )
 }
 
-export default AddContact
+export default EditContact
