@@ -21,8 +21,8 @@ const Contacts = () => {
             </div>
 
             {store.contacts.map((value, index) => (
-               
-               
+
+
                 <div className="row border border-1 p-3">
                     <div className=" py-3 d-flex flex-row">
                         <div className="col-2">
@@ -36,19 +36,19 @@ const Contacts = () => {
                         </div>
 
                         <Link to={`/editcontact/${value.id}`}>
-                            <button className="col-1 btn btn-success" style={{ height: "40px", width: "40px" }} onc><i className="fa-solid fa-pen"></i></button>
+                            <button className="col-1 btn btn-success" style={{ height: "40px", width: "40px" }} ><i className="fa-solid fa-pen"></i></button>
                         </Link>
                         <button className="col-1 btn btn-success ms-4" style={{ height: "40px", width: "40px" }} onClick={() => { actions.deleteContact(index) }}><i class="fa-solid fa-trash-can"></i></button>
 
                     </div>
                 </div>
-               
+
             ))}
 
 
-            
+
         </div>
-        
+
     )
 }
 

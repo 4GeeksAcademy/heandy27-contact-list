@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
@@ -14,6 +14,15 @@ const EditContact = () => {
     const [address, setAddress] = useState('');
     const params = useParams();
     console.log(params);
+
+    let contact = store.contacts.find((contact) => contact.id == params.idContact)
+
+    useEffect(() => {
+        setName(contact?.name)
+        setPhone(contact?.phone)
+        setEmail(contact?.email)
+        setAddress(contact?.address)
+    }, [])
 
     return (
         <div className="bg-dark py-5">
@@ -37,7 +46,7 @@ const EditContact = () => {
                         <input type="text" className="form-control" placeholder="Enter address" id="address" value={address} onChange={(e) => { setAddress(e.target.value) }} />
                     </div>
 
-                    <button type="submit" className="btn btn-primary" onClick={() => { actions.editContact(params.idContact, name, phone, email, address) }}>Submit</button>
+                    <button type="button" className="btn btn-primary" onClick={() => { actions.editContact(params.idContact, name, phone, email, address) }}>Submit</button>
 
                 </form>
                 <Link to="/contacts">

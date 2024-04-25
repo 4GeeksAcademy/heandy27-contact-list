@@ -80,7 +80,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			deleteContact: (index) => {
 				let contactToDelete = getStore().contacts[index]
-				
+
 				fetch(`${contactURL}agendas/heandy/contacts/${contactToDelete.id}`, {
 					method: "DELETE",
 					headers: {
@@ -98,7 +98,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => { error })
 			},
 			editContact: (id, name, phone, email, address) => {
-				
+
 				fetch(`${contactURL}agendas/heandy/contacts/${id}`, {
 					method: "PUT",
 					headers: {
@@ -114,8 +114,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					})
 
+
 					.catch((error) => { error })
 			}
+
+			
+
 		}
 	};
 };
